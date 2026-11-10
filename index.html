@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>史可 · 项目总览 · AI 解决方案 / FDE</title>
+<meta name="description" content="4 个独立完成的 agent 项目：企业知识库检索问答、内容生产自动化流水线、数据分析 Skill 库、Linux 桌面客户端。每个都能演示、能核验、能交接。">
+<style>
+:root{
+  --paper:#F4F1E8; --card:#FBF9F3; --ink:#1A1A18; --soft:#6E695E; --faint:#9C9587;
+  --rule:#D9D2C2; --red:#A8442F;
+  --serif:"Noto Serif CJK SC","Source Han Serif SC","Songti SC",Songti,serif;
+  --sans:"Noto Sans CJK SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font:16px/1.8 var(--sans); letter-spacing:.005em;
+  background-image:radial-gradient(120% 60% at 50% -10%, #FCFAF4 0%, rgba(252,250,244,0) 60%);
+}
+a{color:inherit}
+main{max-width:1060px; margin:0 auto; padding:0 40px 96px}
+.bar{
+  display:flex; justify-content:space-between; align-items:baseline;
+  max-width:1060px; margin:0 auto; padding:26px 40px 0;
+  font-family:var(--sans); font-size:13px; letter-spacing:.14em; color:var(--faint);
+}
+.bar b{color:var(--ink); font-weight:700; letter-spacing:.06em}
+
+/* 题 */
+.lede{padding:58px 0 0; border-bottom:1px solid var(--rule)}
+.kicker{font-size:12.5px; letter-spacing:.2em; color:var(--red); margin:0 0 24px}
+h1{
+  font-family:var(--serif); font-size:clamp(38px,5.6vw,68px); line-height:1.12;
+  letter-spacing:-.01em; font-weight:700; margin:0 0 26px;
+}
+h1 em{font-style:normal; color:var(--red)}
+.sub{font-size:17.5px; line-height:1.95; color:#39362F; max-width:40em; margin:0 0 40px}
+.sub b{font-weight:700}
+.figures{
+  list-style:none; padding:22px 0 26px; margin:0; display:flex; flex-wrap:wrap;
+  border-top:1px solid var(--rule);
+}
+.figures li{padding:0 28px; border-left:1px solid var(--rule)}
+.figures li:first-child{padding-left:0; border-left:0}
+.figures b{display:block; font:700 27px/1.3 var(--serif)}
+.figures span{display:block; font-size:12px; letter-spacing:.1em; color:var(--faint); margin-top:3px; font-family:var(--sans)}
+
+/* 项目 */
+section{padding-top:64px}
+h2{
+  font-size:14.5px; font-weight:700; letter-spacing:.2em; font-family:var(--sans);
+  margin:0 0 8px; padding-top:14px; border-top:1px solid var(--ink);
+}
+h2>i{font-style:normal; color:var(--red); margin-right:12px}
+.secnote{font-size:14px; color:var(--faint); margin:0 0 34px; font-family:var(--sans)}
+
+.pj{border-bottom:1px solid var(--rule); padding:30px 0 32px}
+.pj:last-of-type{border-bottom:0}
+.pj-head{display:flex; align-items:baseline; gap:16px; margin-bottom:12px}
+.pj-no{font-family:var(--serif); font-size:13px; color:var(--red); letter-spacing:.08em; min-width:2em}
+.pj h3{font-family:var(--serif); font-size:26px; font-weight:700; margin:0; letter-spacing:0}
+.pj h3 small{font-family:var(--sans); font-size:12.5px; font-weight:400; color:var(--faint); letter-spacing:.08em; margin-left:12px}
+.pj-body{display:grid; grid-template-columns:1.15fr .85fr; gap:0 48px; padding-left:calc(2em + 16px)}
+.pj-body p{margin:0 0 12px; font-size:15.5px; line-height:1.92; color:#33302A}
+.pj-body p b{font-weight:700}
+.why{color:var(--soft); font-size:14.5px}
+.facts{list-style:none; margin:0; padding:0; font-family:var(--sans); font-size:13.5px; line-height:1.95}
+.facts li{border-top:1px dashed var(--rule); padding:7px 0; display:flex; justify-content:space-between; gap:16px}
+.facts li:first-child{border-top:0; padding-top:0}
+.facts span{color:var(--faint); letter-spacing:.04em; white-space:nowrap}
+.facts b{font-weight:700; font-variant-numeric:tabular-nums}
+.links{margin:16px 0 0; padding-left:calc(2em + 16px); display:flex; flex-wrap:wrap; gap:10px}
+.links a{
+  display:inline-block; font-family:var(--sans); font-size:13px; letter-spacing:.04em;
+  text-decoration:none; border:1px solid var(--rule); background:var(--card);
+  padding:7px 14px; transition:.13s;
+}
+.links a:hover{border-color:var(--red); color:var(--red)}
+.links a.key{border-color:var(--red); color:var(--red)}
+code{font-family:"Noto Sans Mono CJK SC",ui-monospace,monospace; font-size:12.5px; background:#EAE5D7; padding:1px 5px; letter-spacing:0}
+
+/* 工作方式 */
+.points{display:grid; grid-template-columns:repeat(3,1fr); gap:0 36px; margin-top:6px}
+.points article{border-top:1px solid var(--rule); padding-top:16px}
+.points h4{font-size:16.5px; font-weight:700; margin:0 0 9px; font-family:var(--serif); letter-spacing:.02em}
+.points p{margin:0; font-size:14.5px; line-height:1.88; color:#39362F}
+
+/* 尾 */
+footer{margin-top:78px; padding-top:24px; border-top:1px solid var(--ink); font-size:14.5px; color:var(--soft)}
+footer p{margin:0 0 10px; max-width:52em}
+footer a{color:var(--ink); text-decoration:none; border-bottom:1px solid var(--rule)}
+footer a:hover{color:var(--red); border-color:var(--red)}
+footer .sign{font-size:12px; letter-spacing:.14em; color:var(--faint); margin-top:24px}
+
+@media (max-width:860px){
+  main{padding:0 22px 64px} .bar{padding:20px 22px 0}
+  .pj-body{grid-template-columns:1fr; gap:0; padding-left:0}
+  .links{padding-left:0}
+  .points{grid-template-columns:1fr; gap:24px}
+  .figures li{padding:0 16px}
+  .figures b{font-size:22px}
+}
+
+/* 打印：一页 A4 */
+@page{size:A4; margin:10mm 13mm}
+@media print{
+  :root{--paper:#fff; --card:#fff}
+  body{background:#fff; font-size:9.4pt; line-height:1.55}
+  main{padding:0; max-width:none}
+  .bar{padding:0 0 6px; font-size:8pt; letter-spacing:.1em}
+  .lede{padding:6px 0 0}
+  .kicker{margin:0 0 8px; font-size:8pt}
+  h1{font-size:19pt; margin:0 0 5px; line-height:1.08}
+  .sub{font-size:9pt; line-height:1.55; margin:0 0 6px; max-width:none}
+  .figures{padding:5px 0 6px}
+  .figures li{padding:0 18px}
+  .figures b{font-size:12.5pt}
+  .figures span{font-size:7.4pt; margin-top:0}
+  section{padding-top:7px}
+  h2{font-size:8.6pt; margin-bottom:3px; padding-top:5px}
+  .secnote{display:none}
+  .pj{padding:4px 0 4px; break-inside:avoid}
+  .pj-head{margin-bottom:5px; gap:10px}
+  .pj h3{font-size:12pt}
+  .pj h3 small{font-size:7.6pt; margin-left:8px}
+  .pj-body{gap:0 24px}
+  .pj-body p{font-size:8.4pt; line-height:1.5; margin:0 0 2px}
+  .why{font-size:8.4pt}
+  .facts{font-size:7.9pt; line-height:1.45}
+  .facts li{padding:1.5px 0}
+  .links{margin-top:4px; gap:5px}
+  .links a{padding:1.5px 6px; font-size:7.3pt; border-color:#ccc}
+  .howto{display:none}
+  .facts li:nth-child(n+5){display:none}
+  .why{display:none}
+  footer{margin-top:5px; padding-top:5px; font-size:7.8pt; line-height:1.5}
+  footer .sign{display:none}
+  footer p{margin:0 0 1px}
+  footer p:last-of-type{margin:0}
+}
+</style>
+</head>
+<body>
+
+<div class="bar"><span><b>史可</b> · 项目总览</span><span>2026-11 · 北京</span></div>
+
+<main>
+
+  <div class="lede">
+    <p class="kicker">AI 解决方案 / FDE · 企业知识库 · 内容自动化</p>
+    <h1>把场景做成<br>能交付的 <em>demo</em></h1>
+    <p class="sub">
+      5 年数据交付：DataWorks、SQL、Python、帆软 BI，服务电网、餐饮、零售客户，产出 20 余张生产报表与
+      20 万条训练数据。2026 年起用 pi-agent / pstack 独立完成 <b>4 个项目</b>——企业知识库、内容流水线、
+      数据分析 Skill 库、桌面客户端，从需求、实现、测试到文档与交接都由我一个人跑完。
+      我不手写算法，但能把场景做到<b>可演示、可核验、可交接</b>。
+    </p>
+    <ul class="figures">
+      <li><b>4</b><span>独立项目</span></li>
+      <li><b>143</b><span>book-corpus 提交</span></li>
+      <li><b>4.2 万</b><span>行 Python</span></li>
+      <li><b>23</b><span>集成片</span></li>
+      <li><b>9 万+</b><span>抖音播放</span></li>
+    </ul>
+  </div>
+
+  <section>
+    <h2><i>壹</i>四个项目</h2>
+    <p class="secnote">每个项目都有一句问题、一条做法、一组可核对的数字，和一个能点开的东西。</p>
+
+    <article class="pj">
+      <div class="pj-head">
+        <span class="pj-no">01</span>
+        <h3>企业知识库检索问答<small>书库场景验证 · 2026.10–11</small></h3>
+      </div>
+      <div class="pj-body">
+        <div>
+          <p>长文档问答的通病是<b>找不到原文、答案不可核对</b>：模型说得像那么回事，用户没法验证。
+            这个项目把 15 本书、1,973 章正文做成段落级倒排索引，答案里每条依据都回指
+            <code>books/&lt;uid&gt;/md/章节.md:行号</code>，点开就是原文那一行。</p>
+          <p class="why">为什么值得给客户看：换成合同、法规、设备手册，链路完全一样——查得到、可核对、能交接。
+            配套 ops 控制台管索引与诊断，另有验收测试与脱机静态样例，不依赖云端也能演示。</p>
+        </div>
+        <ul class="facts">
+          <li><span>代码量</span><b>4.2 万行 Python</b></li>
+          <li><span>提交</span><b>143</b></li>
+          <li><span>测试</span><b>46 个测试文件</b></li>
+          <li><span>演示</span><b>89 秒真录 · 无旁白</b></li>
+          <li><span>依赖</span><b>标准库 + SQLite FTS5</b></li>
+        </ul>
+      </div>
+      <div class="links">
+        <a class="key" href="book-corpus/">看静态样例与录屏 →</a>
+        <a href="https://github.com/sk123qaq/book-corpus">GitHub / book-corpus</a>
+      </div>
+    </article>
+
+    <article class="pj">
+      <div class="pj-head">
+        <span class="pj-no">02</span>
+        <h3>内容生产自动化流水线<small>已发布到抖音 · 2026.09–11</small></h3>
+      </div>
+      <div class="pj-body">
+        <div>
+          <p>把外语影视做成本地中文解说成片：<b>ASR 定位原台词 → 写解说词 → TTS 配音 → 按原片台词反推剪辑点 →
+            原声闪避 → 字幕烧录 → 9 项门禁核对</b>。一集 60 分钟的片子压到 22 分钟，29 个切点全部由脚本算出并逐条审计。</p>
+          <p class="why">为什么值得给客户看：这是"批量、稳定、可复制"的内容交付——
+            23 集跑同一套流水线，交付前有门禁、出错有 badcase 表、换人也能接。
+            抖音已发 23 条，9 万+ 播放、2000+ 点击。</p>
+        </div>
+        <ul class="facts">
+          <li><span>原片 → 成片</span><b>60:13 → 22:22</b></li>
+          <li><span>片段 / 解说</span><b>29 段 / 8:39</b></li>
+          <li><span>保留原声</span><b>13:44</b></li>
+          <li><span>交付门禁</span><b>verify 9 项</b></li>
+          <li><span>成片</span><b>23 集 · 5 季</b></li>
+        </ul>
+      </div>
+      <div class="links">
+        <a class="key" href="video-pipeline.html">看流水线案例 →</a>
+        <a href="https://github.com/sk123qaq/useful_skill/tree/main/video-commentary">GitHub / 源码</a>
+        <a href="https://v.douyin.com/hrzYgGBNUNE/">抖音代表作品</a>
+      </div>
+    </article>
+
+    <article class="pj">
+      <div class="pj-head">
+        <span class="pj-no">03</span>
+        <h3>数据分析 Skill 库<small>data_analysis_pro · 2026.03</small></h3>
+      </div>
+      <div class="pj-body">
+        <div>
+          <p>把 EDA → 统计检验 → 建模 → 归因 → 报告固化成可复跑的 pipeline，覆盖漏斗、留存、LTV、A/B 与因果。
+            每条结论由脚本产出证据，<b>gate 规则校验口径</b>，达不到等级就降级输出，不硬写结论。</p>
+          <p class="why">为什么值得给客户看：数据团队的"分析 Copilot"——
+            换一份数据就能重跑，产出 HTML / DOCX / PDF 与运行索引，分析师能复核每一步。</p>
+        </div>
+        <ul class="facts">
+          <li><span>脚本</span><b>25 个</b></li>
+          <li><span>参考文档</span><b>16 篇</b></li>
+          <li><span>产出格式</span><b>HTML / DOCX / PDF</b></li>
+          <li><span>定级</span><b>gate 规则</b></li>
+        </ul>
+      </div>
+      <div class="links">
+        <a href="https://github.com/sk123qaq/useful_skill/tree/main/data_analysis_pro">GitHub / data_analysis_pro</a>
+      </div>
+    </article>
+
+    <article class="pj">
+      <div class="pj-head">
+        <span class="pj-no">04</span>
+        <h3>Linux 网易云客户端<small>工程能力展示 · 2026.09–10</small></h3>
+      </div>
+      <div class="pj-body">
+        <div>
+          <p>PySide6 + mpv 的桌面客户端：扫码登录、四类搜索、583 首喜欢列表 1.3 秒载入、四类 LRU 缓存
+            （50MB–8GB）、歌词与主题。审计出 13 个缺陷并补齐回归用例。</p>
+          <p class="why">为什么放进来：它证明上面那些项目不是只会拼 prompt——
+            能读、能改、能测一个 8 千行的真实客户端。</p>
+        </div>
+        <ul class="facts">
+          <li><span>代码量</span><b>8,178 行 Python</b></li>
+          <li><span>测试</span><b>184 项离线测试</b></li>
+          <li><span>首屏</span><b>1.3 秒</b></li>
+          <li><span>提交</span><b>21</b></li>
+        </ul>
+      </div>
+      <div class="links">
+        <a href="https://github.com/sk123qaq/netease-music-linux">GitHub / netease-music-linux</a>
+      </div>
+    </article>
+  </section>
+
+  <section class="howto">
+    <h2><i>贰</i>我怎么交付</h2>
+    <div class="points">
+      <article>
+        <h4>先定验收，再写代码</h4>
+        <p>每个项目动手前先写清"什么算过"：引用要能回指行号、切点不能落在台词里、gate 达不到就降级。
+          验收标准写在仓库里，不写在聊天记录里。</p>
+      </article>
+      <article>
+        <h4>门禁不过，不发布</h4>
+        <p>book-corpus 有发布门禁，流水线有 9 项核对，数据分析有 gate 定级。
+          失败项带具体定位（字幕行号、章节行号），能定点修，不用从头重跑。</p>
+      </article>
+      <article>
+        <h4>交付四件套</h4>
+        <p>成片/页面 + 一页说明 + 部署与交接文档 + 已知局限。客户拿得走、同事接得住，
+          不留下"只有我能跑"的东西。</p>
+      </article>
+    </div>
+  </section>
+
+  <footer>
+    <p>简历与一页总览：<a href="assets/resume.pdf">史可-简历-AI解决方案-FDE.pdf</a>
+      · 本页可直接 Ctrl/Cmd+P 存成 PDF。</p>
+    <p>GitHub：<a href="https://github.com/sk123qaq">github.com/sk123qaq</a>
+      · 邮箱：<a href="mailto:2689181501@qq.com">2689181501@qq.com</a>
+      · 抖音：<a href="https://v.douyin.com/hrzYgGBNUNE/">代表作品</a></p>
+    <p>北京 · 可出差 / 驻场 · 随时到岗</p>
+    <p class="sign">2026-11 · 所有数字取自仓库与本机产物，可复核</p>
+  </footer>
+
+</main>
+</body>
+</html>

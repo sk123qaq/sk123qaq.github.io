@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>内容生产自动化流水线 · 案例 · 史可</title>
+<meta name="description" content="外语影视 → 中文解说成片：ASR 定位台词、按台词反推剪辑点、原声闪避、字幕烧录、9 项门禁。一集 60:13 压到 22:22，23 集跑同一条流水线。">
+<style>
+:root{
+  --paper:#F4F1E8; --card:#FBF9F3; --ink:#1A1A18; --soft:#6E695E; --faint:#9C9587;
+  --rule:#D9D2C2; --red:#A8442F;
+  --serif:"Noto Serif CJK SC","Source Han Serif SC","Songti SC",Songti,serif;
+  --sans:"Noto Sans CJK SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font:16px/1.8 var(--sans);
+  background-image:radial-gradient(120% 60% at 50% -10%, #FCFAF4 0%, rgba(252,250,244,0) 60%);
+}
+a{color:inherit}
+main{max-width:1040px; margin:0 auto; padding:0 40px 96px}
+.bar{
+  display:flex; justify-content:space-between; align-items:baseline;
+  max-width:1040px; margin:0 auto; padding:26px 40px 0;
+  font-size:13px; letter-spacing:.14em; color:var(--faint);
+}
+.bar b{color:var(--ink); font-weight:700; letter-spacing:.06em}
+.bar a{text-decoration:none; border-bottom:1px solid var(--rule)}
+
+.lede{padding:56px 0 0; border-bottom:1px solid var(--rule)}
+.kicker{font-size:12.5px; letter-spacing:.2em; color:var(--red); margin:0 0 24px}
+h1{font-family:var(--serif); font-size:clamp(34px,5vw,60px); line-height:1.14; font-weight:700; margin:0 0 24px; letter-spacing:-.008em}
+h1 em{font-style:normal; color:var(--red)}
+.sub{font-size:17px; line-height:1.95; color:#39362F; max-width:40em; margin:0 0 38px}
+.sub b{font-weight:700}
+.figures{list-style:none; padding:22px 0 26px; margin:0; display:flex; flex-wrap:wrap; border-top:1px solid var(--rule)}
+.figures li{padding:0 26px; border-left:1px solid var(--rule)}
+.figures li:first-child{padding-left:0; border-left:0}
+.figures b{display:block; font:700 26px/1.3 var(--serif); font-variant-numeric:tabular-nums}
+.figures span{display:block; font-size:12px; letter-spacing:.1em; color:var(--faint); margin-top:3px}
+
+.film{margin:44px 0 0}
+.film video{display:block; width:100%; max-width:720px; height:auto; margin:0 auto; background:#0F0F0E; border:1px solid #CFC7B5; box-shadow:0 18px 44px -30px rgba(40,32,20,.55)}
+.film figcaption{margin-top:14px; font-size:14px; color:var(--soft); max-width:48em}
+.film figcaption i{font-style:normal; color:var(--red)}
+
+section{padding-top:66px}
+h2{font-size:14.5px; font-weight:700; letter-spacing:.2em; margin:0 0 26px; padding-top:14px; border-top:1px solid var(--ink)}
+h2>i{font-style:normal; color:var(--red); margin-right:12px}
+p{font-size:15.5px; line-height:1.9; color:#33302A}
+p b{font-weight:700}
+code{font-family:"Noto Sans Mono CJK SC",ui-monospace,monospace; font-size:12.5px; background:#EAE5D7; padding:1px 5px}
+
+.arch svg{display:block; width:100%; height:auto}
+.arch figcaption{font-size:13px; color:var(--faint); margin-top:12px}
+
+table{width:100%; border-collapse:collapse; font-size:13.6px; font-family:var(--sans)}
+caption{caption-side:bottom; text-align:left; font-size:12.5px; color:var(--faint); padding-top:12px}
+th{text-align:left; font-weight:700; font-size:12px; letter-spacing:.1em; color:var(--faint); border-bottom:1px solid var(--ink); padding:0 10px 8px 0}
+td{border-bottom:1px solid var(--rule); padding:9px 10px 9px 0; vertical-align:top}
+td.mono,tfoot td{font-family:"Noto Sans Mono CJK SC",ui-monospace,monospace; font-size:12.5px; font-variant-numeric:tabular-nums}
+tr.hl td{background:#F0EBDB}
+
+.quote{margin:0 0 16px; padding:14px 18px; background:var(--card); border-left:2px solid var(--red); font-family:"Noto Sans Mono CJK SC",ui-monospace,monospace; font-size:12.4px; line-height:1.85; overflow-x:auto; white-space:pre}
+.quote b{color:var(--red); font-weight:700}
+.quote .ok{color:#3F6B4A}
+
+.two{display:grid; grid-template-columns:1fr 1fr; gap:0 44px}
+.two h3{font-family:var(--serif); font-size:18px; margin:0 0 10px}
+.two ul{margin:0; padding-left:1.1em; font-size:14.8px; line-height:1.9; color:#33302A}
+.two li{margin-bottom:6px}
+
+footer{margin-top:70px; padding-top:24px; border-top:1px solid var(--ink); font-size:14px; color:var(--soft)}
+footer p{margin:0 0 10px; font-size:14px}
+footer a{color:var(--ink); text-decoration:none; border-bottom:1px solid var(--rule)}
+footer a:hover{color:var(--red); border-color:var(--red)}
+footer .sign{font-size:12px; letter-spacing:.14em; color:var(--faint); margin-top:22px}
+
+@media (max-width:860px){
+  main{padding:0 22px 64px} .bar{padding:20px 22px 0}
+  .two{grid-template-columns:1fr; gap:26px}
+  .figures li{padding:0 14px}
+  .figures b{font-size:21px}
+  table{font-size:12.4px}
+  td,th{padding-right:8px}
+}
+@media print{
+  :root{--paper:#fff; --card:#fff}
+  body{background:#fff; font-size:9.4pt}
+  main{padding:0; max-width:none}
+  section{padding-top:18px; break-inside:avoid}
+  .film video{max-height:210px; object-fit:contain}
+}
+</style>
+</head>
+<body>
+
+<div class="bar"><span><b>史可</b> · 案例 02</span><span><a href="index.html">← 项目总览</a></span></div>
+
+<main>
+
+  <div class="lede">
+    <p class="kicker">内容生产自动化流水线 · video-commentary</p>
+    <h1>一集 60 分钟，<br>压成 22 分钟的 <em>中文解说</em></h1>
+    <p class="sub">
+      外语影视做中文解说，人工版一集要两天：听片、写稿、配音、找切点、压字幕、调音。
+      这套流水线把这六步全脚本化——<b>ASR 定位原台词，切点按台词反推，原声自动闪避，字幕烧进画面</b>，
+      交付前跑 9 项核对。本机跑过 23 集 / 5 季；抖音已发 23 条，9 万+ 播放、2000+ 点击。
+    </p>
+    <ul class="figures">
+      <li><b>60:13</b><span>原片</span></li>
+      <li><b>22:22</b><span>成片</span></li>
+      <li><b>29</b><span>片段 / 集</span></li>
+      <li><b>8:39</b><span>解说时长</span></li>
+      <li><b>13:44</b><span>保留原声</span></li>
+      <li><b>23</b><span>集成片</span></li>
+    </ul>
+  </div>
+
+  <figure class="film">
+    <video src="assets/video/hook-45s.mp4" poster="assets/video/hook-poster.jpg" controls autoplay muted loop playsinline></video>
+    <figcaption>成片开场 45 秒。第 0 秒就有人声，没有片头卡、没有标题条——
+      原片自己的片头（剧名卡 + 主题音乐）压上解说，这是跑过多集之后留下的开场做法。
+      字幕是脚本烧进画面的，水印由底部遮挡条盖住，原片台词在解说停顿处露出来当"彩蛋"。</figcaption>
+  </figure>
+
+  <section class="arch">
+    <h2><i>壹</i>八个阶段，每段都有判据</h2>
+    <p>流程不是"调一次 prompt 等结果"：每个阶段有明确的完成标准，跑不通就停在原地，
+      不会把错误带进下一段。下面这些脚本都在
+      <a href="https://github.com/sk123qaq/useful_skill/tree/main/video-commentary">useful_skill / video-commentary</a> 里。</p>
+    <figure style="margin:26px 0 0">
+      <svg viewBox="0 0 1000 292" role="img" aria-label="八阶段流水线：定音色、侦察、台词时间轴、定节拍写稿、校验计划、配音、剪辑混音合成、核对交付">
+        <defs>
+          <style>
+            .bx{fill:#FBF9F3;stroke:#CFC7B5;stroke-width:1}
+            .bxr{fill:#FBF9F3;stroke:#A8442F;stroke-width:1.2}
+            .t{font-family:"Noto Serif CJK SC",serif;font-size:14.5px;fill:#1A1A18}
+            .s{font-family:"Noto Sans CJK SC",sans-serif;font-size:10.4px;fill:#8C8578;letter-spacing:0}
+            .k{font-family:"Noto Sans CJK SC",sans-serif;font-size:10px;fill:#A8442F;letter-spacing:.14em}
+            .ar{fill:none;stroke:#B3AA97;stroke-width:1}
+          </style>
+          <marker id="ar" viewBox="0 0 6 6" refX="5.4" refY="3" markerWidth="5" markerHeight="5" orient="auto">
+            <path d="M0,0 L6,3 L0,6 z" fill="#B3AA97"/>
+          </marker>
+        </defs>
+
+        <!-- 行一 -->
+        <text class="k" x="0" y="10">离线 · 一集只跑一次</text>
+        <g>
+          <rect class="bxr" x="0" y="26" width="206" height="66"/>
+          <text class="t" x="14" y="52">定音色</text>
+          <text class="s" x="14" y="73">13 个候选先听再动工</text>
+
+          <rect class="bx" x="252" y="26" width="206" height="66"/>
+          <text class="t" x="266" y="52">侦察</text>
+          <text class="s" x="266" y="73">字幕带 / 水印带 / 音轨</text>
+
+          <rect class="bx" x="504" y="26" width="206" height="66"/>
+          <text class="t" x="518" y="52">台词时间轴</text>
+          <text class="s" x="518" y="73">ASR 句级时间戳 → 台词表</text>
+
+          <rect class="bx" x="756" y="26" width="206" height="66"/>
+          <text class="t" x="770" y="52">定节拍 · 写稿</text>
+          <text class="s" x="770" y="73">29 段，一段一稿</text>
+        </g>
+        <path class="ar" d="M206,59 H246" marker-end="url(#ar)"/>
+        <path class="ar" d="M458,59 H498" marker-end="url(#ar)"/>
+        <path class="ar" d="M710,59 H750" marker-end="url(#ar)"/>
+        <path class="ar" d="M962,59 H986 V150 H103 V170" marker-end="url(#ar)"/>
+
+        <!-- 行二 -->
+        <text class="k" x="0" y="146">交付 · 每次改稿都重跑</text>
+        <g>
+          <rect class="bx" x="0" y="176" width="206" height="66"/>
+          <text class="t" x="14" y="202">校验计划</text>
+          <text class="s" x="14" y="223">1 分钟，省一轮返工</text>
+
+          <rect class="bx" x="252" y="176" width="206" height="66"/>
+          <text class="t" x="266" y="202">配音</text>
+          <text class="s" x="266" y="223">lint → pilot → 全量</text>
+
+          <rect class="bx" x="504" y="176" width="206" height="66"/>
+          <text class="t" x="518" y="202">剪辑 · 混音 · 合成</text>
+          <text class="s" x="518" y="223">vaapi 失败自动回落 x264</text>
+
+          <rect class="bxr" x="756" y="176" width="206" height="66"/>
+          <text class="t" x="770" y="202">核对 · 交付</text>
+          <text class="s" x="770" y="223">9 项核对 + 封面两版</text>
+        </g>
+        <path class="ar" d="M206,209 H246" marker-end="url(#ar)"/>
+        <path class="ar" d="M458,209 H498" marker-end="url(#ar)"/>
+        <path class="ar" d="M710,209 H750" marker-end="url(#ar)"/>
+      </svg>
+      <figcaption>带红框的两步是"定错就全废"的地方：音色定错要重出整片，核对接不过不许发。</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2><i>贰</i>切点是算出来的，不是拉时间轴试的</h2>
+    <p>人工剪辑最费时间的是"这一刀切在哪"：切早了啃掉半句台词，切晚了多留一截废画面。
+      这里的做法是先有<b>台词表</b>（每句原片台词的时间戳），再让脚本回答每一段"从哪开始、到哪结束"：
+      能吸附到句末就 <code>句末+0.35s</code>，会切碎镜头就延长到整镜，开场和片尾固定留 2 秒原声。</p>
+
+    <table>
+      <caption>节选自 <code>work/out/selfcheck.txt</code>（这集 29 段全表，求解方式一栏是脚本写的，不是人填的）。</caption>
+      <thead><tr><th>片段</th><th>原片区间</th><th>成片位置</th><th>求解方式</th><th style="text-align:right">解说 / 原声</th></tr></thead>
+      <tbody>
+        <tr><td>p00 钩子</td><td class="mono">0.00–43.59</td><td class="mono">00:00.00</td><td>固定片段（解说后原片再留 2s）</td><td class="mono" style="text-align:right">41.6s / 2.0s</td></tr>
+        <tr><td>p01 香肠改名</td><td class="mono">116.62–148.20</td><td class="mono">00:43.59</td><td>延长到整镜；起点吸附停顿 134.42s</td><td class="mono" style="text-align:right">17.5s / 14.1s</td></tr>
+        <tr><td>p08 内政大臣</td><td class="mono">1140.36–1198.32</td><td class="mono">05:44.01</td><td>句末 +0.35s（镜内 48.0s）</td><td class="mono" style="text-align:right">20.2s / 37.7s</td></tr>
+        <tr><td>p17b 劝退埃里克</td><td class="mono">2780.24–2817.47</td><td class="mono">15:01.34</td><td>回退到上一个切点</td><td class="mono" style="text-align:right">10.9s / 26.3s</td></tr>
+        <tr class="hl"><td>p22 肯尼迪</td><td class="mono">3337.80–3402.19</td><td class="mono">18:26.33</td><td>吸附切点 3402.24（该镜 3.5s）</td><td class="mono" style="text-align:right">18.9s / 45.5s</td></tr>
+        <tr><td>p27 片尾</td><td class="mono">3604.00–3613.73</td><td class="mono">22:12.77</td><td>固定片段（解说后原片再留 2s）</td><td class="mono" style="text-align:right">7.7s / 2.0s</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2><i>叁</i>切点也有门禁：失败项要指出字幕第几行</h2>
+    <p>29 个切点渲染前先过审计：切点落没落在台词里、切口是硬缝还是有空气、"闪字幕"有没有出现。
+      首轮结果是 <b>12 个不合格 + 12 个待人工确认</b>。关键在于每条失败都带定位，能定点回改，不用重听一小时原片：</p>
+
+    <div class="quote"><b>✗✗ p09谁接班</b> b=1361.20｜无语音缝｜闪字幕 [341]｜<b>✗ 切点落在台词里</b>：字幕行 [341]
+<b>✗✗ p11折衷候选</b> b=1593.83｜缝 1592.35-1596.67(4.32s) 前余1.48 后余2.84
+<b>✗✗ p15标准答词</b> b=2462.95｜无语音缝｜闪字幕 [622]｜<b>✗ 切点落在台词里</b>：字幕行 [622]
+<span class="ok">OK  p00钩子</span> b=43.59｜缝 43.19-45.59(2.40s) 前余0.40 后余2.00｜无闪字幕</div>
+
+    <p>改法是回到台词表，把那几行的界点挪开重算，再重跑时间轴与渲染。最后一道关是交付核对 9 项
+      （时长、响度差、峰值余量、字幕烧录、水印遮挡、原声闪避、画面断续等），全绿才出片；
+      交付三件——<code>成片.mp4</code>、<code>解说字幕.ass</code>、<code>解说字幕.srt</code>——与中间产物 md5 一致。</p>
+  </section>
+
+  <section>
+    <h2><i>肆</i>适用与不适用</h2>
+    <div class="two">
+      <div>
+        <h3>适合</h3>
+        <ul>
+          <li>有成句台词、时间轴清晰的外语剧集或长片（25–60 分钟一集）。</li>
+          <li>要批量的内容团队：同一套参数跑 5 季 23 集，换集只改素材路径。</li>
+          <li>需要"可验收"的交付：切点表、审计表、核对结果都能留档。</li>
+        </ul>
+      </div>
+      <div>
+        <h3>不适合</h3>
+        <ul>
+          <li>纯字幕翻译、无解说的切片、真人出镜口播——用不上这条链路。</li>
+          <li>对白重叠严重、方言重、无对齐字幕的片子，台词表会先失真。</li>
+          <li>短于 5 分钟的片段：ASR + 配音的固定成本摊不下来。</li>
+        </ul>
+      </div>
+    </div>
+    <p style="margin-top:26px">已知代价：音色必须第 0 阶段定死（定错整片重出）；解说词长度是主变量，
+      时长跟着稿子走，不为凑分钟数灌水；一次 ASR + TTS 有 API 成本，所以先 lint 再 pilot 再全量。</p>
+  </section>
+
+  <footer>
+    <p>源码：<a href="https://github.com/sk123qaq/useful_skill/tree/main/video-commentary">useful_skill / video-commentary</a>
+      · 抖音：<a href="https://v.douyin.com/hrzYgGBNUNE/">代表作品</a>
+      · 本片工作目录：<code>视频剪辑/是大臣第三季/是,大臣S3特别篇-党派之戏/</code></p>
+    <p><a href="index.html">← 回到项目总览</a> · 史可 · 2026-11</p>
+    <p class="sign">数字取自本集 work/ 产物：selfcheck.txt（29 段）、cut_audit.txt（首轮审计）、成片 ffprobe 时长 1342.5s</p>
+  </footer>
+
+</main>
+</body>
+</html>
