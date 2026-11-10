@@ -53,7 +53,10 @@ p{font-size:15.5px; line-height:1.9; color:#33302A}
 p b{font-weight:700}
 code{font-family:"Noto Sans Mono CJK SC",ui-monospace,monospace; font-size:12.5px; background:#EAE5D7; padding:1px 5px}
 
-.arch svg{display:block; width:100%; height:auto}
+.arch .scroll{overflow-x:auto; overflow-y:hidden; padding-bottom:6px}
+.arch svg{display:block; width:100%; min-width:760px; height:auto}
+.tw{overflow-x:auto; overflow-y:hidden}
+.hint{display:none}
 .arch figcaption{font-size:13px; color:var(--faint); margin-top:12px}
 
 table{width:100%; border-collapse:collapse; font-size:13.6px; font-family:var(--sans)}
@@ -78,12 +81,13 @@ footer a{color:var(--ink); text-decoration:none; border-bottom:1px solid var(--r
 footer a:hover{color:var(--red); border-color:var(--red)}
 footer .sign{font-size:12px; letter-spacing:.14em; color:var(--faint); margin-top:22px}
 
-@media (max-width:860px){
+@media screen and (max-width:860px){
   main{padding:0 22px 64px} .bar{padding:20px 22px 0}
   .two{grid-template-columns:1fr; gap:26px}
   .figures li{padding:0 14px}
   .figures b{font-size:21px}
-  table{font-size:12.4px}
+  table{font-size:12.4px; min-width:600px}
+  .hint{display:inline; color:var(--faint)}
   td,th{padding-right:8px}
 }
 @media print{
@@ -107,7 +111,7 @@ footer .sign{font-size:12px; letter-spacing:.14em; color:var(--faint); margin-to
     <p class="sub">
       外语影视做中文解说，人工版一集要两天：听片、写稿、配音、找切点、压字幕、调音。
       这套流水线把这六步全脚本化——<b>ASR 定位原台词，切点按台词反推，原声自动闪避，字幕烧进画面</b>，
-      交付前跑 9 项核对。本机跑过 23 集 / 5 季；抖音已发 23 条，9 万+ 播放、2000+ 点击。
+      交付前跑 9 项核对。本机跑过 23 集（三个整季 + 第四季第一集）；抖音已发 23 条，9 万+ 播放、2000+ 点击。
     </p>
     <ul class="figures">
       <li><b>60:13</b><span>原片</span></li>
@@ -120,7 +124,7 @@ footer .sign{font-size:12px; letter-spacing:.14em; color:var(--faint); margin-to
   </div>
 
   <figure class="film">
-    <video src="assets/video/hook-45s.mp4" poster="assets/video/hook-poster.jpg" controls autoplay muted loop playsinline></video>
+    <video src="assets/video/hook-45s.mp4" poster="assets/video/hook-poster.jpg" controls muted loop preload="metadata"></video>
     <figcaption>成片开场 45 秒。第 0 秒就有人声，没有片头卡、没有标题条——
       原片自己的片头（剧名卡 + 主题音乐）压上解说，这是跑过多集之后留下的开场做法。
       字幕是脚本烧进画面的，水印由底部遮挡条盖住，原片台词在解说停顿处露出来当"彩蛋"。</figcaption>
@@ -132,7 +136,8 @@ footer .sign{font-size:12px; letter-spacing:.14em; color:var(--faint); margin-to
       不会把错误带进下一段。下面这些脚本都在
       <a href="https://github.com/sk123qaq/useful_skill/tree/main/video-commentary">useful_skill / video-commentary</a> 里。</p>
     <figure style="margin:26px 0 0">
-      <svg viewBox="0 0 1000 292" role="img" aria-label="八阶段流水线：定音色、侦察、台词时间轴、定节拍写稿、校验计划、配音、剪辑混音合成、核对交付">
+      <div class="scroll">
+      <svg viewBox="0 0 1000 296" role="img" aria-label="八阶段流水线：定音色、侦察、台词时间轴、定节拍写稿、校验计划、配音、剪辑混音合成、核对交付">
         <defs>
           <style>
             .bx{fill:#FBF9F3;stroke:#CFC7B5;stroke-width:1}
@@ -169,32 +174,33 @@ footer .sign{font-size:12px; letter-spacing:.14em; color:var(--faint); margin-to
         <path class="ar" d="M206,59 H246" marker-end="url(#ar)"/>
         <path class="ar" d="M458,59 H498" marker-end="url(#ar)"/>
         <path class="ar" d="M710,59 H750" marker-end="url(#ar)"/>
-        <path class="ar" d="M962,59 H986 V150 H103 V170" marker-end="url(#ar)"/>
+        <path class="ar" d="M962,59 H986 V162 H103 V186" marker-end="url(#ar)"/>
 
         <!-- 行二 -->
-        <text class="k" x="0" y="146">交付 · 每次改稿都重跑</text>
+        <text class="k" x="0" y="148">交付 · 每次改稿都重跑</text>
         <g>
-          <rect class="bx" x="0" y="176" width="206" height="66"/>
-          <text class="t" x="14" y="202">校验计划</text>
-          <text class="s" x="14" y="223">1 分钟，省一轮返工</text>
+          <rect class="bx" x="0" y="190" width="206" height="66"/>
+          <text class="t" x="14" y="216">校验计划</text>
+          <text class="s" x="14" y="237">1 分钟，省一轮返工</text>
 
-          <rect class="bx" x="252" y="176" width="206" height="66"/>
-          <text class="t" x="266" y="202">配音</text>
-          <text class="s" x="266" y="223">lint → pilot → 全量</text>
+          <rect class="bx" x="252" y="190" width="206" height="66"/>
+          <text class="t" x="266" y="216">配音</text>
+          <text class="s" x="266" y="237">lint → pilot → 全量</text>
 
-          <rect class="bx" x="504" y="176" width="206" height="66"/>
-          <text class="t" x="518" y="202">剪辑 · 混音 · 合成</text>
-          <text class="s" x="518" y="223">vaapi 失败自动回落 x264</text>
+          <rect class="bx" x="504" y="190" width="206" height="66"/>
+          <text class="t" x="518" y="216">剪辑 · 混音 · 合成</text>
+          <text class="s" x="518" y="237">vaapi 失败自动回落 x264</text>
 
-          <rect class="bxr" x="756" y="176" width="206" height="66"/>
-          <text class="t" x="770" y="202">核对 · 交付</text>
-          <text class="s" x="770" y="223">9 项核对 + 封面两版</text>
+          <rect class="bxr" x="756" y="190" width="206" height="66"/>
+          <text class="t" x="770" y="216">核对 · 交付</text>
+          <text class="s" x="770" y="237">9 项核对 + 封面两版</text>
         </g>
-        <path class="ar" d="M206,209 H246" marker-end="url(#ar)"/>
-        <path class="ar" d="M458,209 H498" marker-end="url(#ar)"/>
-        <path class="ar" d="M710,209 H750" marker-end="url(#ar)"/>
+        <path class="ar" d="M206,223 H246" marker-end="url(#ar)"/>
+        <path class="ar" d="M458,223 H498" marker-end="url(#ar)"/>
+        <path class="ar" d="M710,223 H750" marker-end="url(#ar)"/>
       </svg>
-      <figcaption>带红框的两步是"定错就全废"的地方：音色定错要重出整片，核对接不过不许发。</figcaption>
+      </div>
+      <figcaption><span class="hint">左右滑动看完整八步 · </span>带红框的两步是"定错就全废"的地方：音色定错要重出整片，核对接不过不许发。</figcaption>
     </figure>
   </section>
 
@@ -204,8 +210,9 @@ footer .sign{font-size:12px; letter-spacing:.14em; color:var(--faint); margin-to
       这里的做法是先有<b>台词表</b>（每句原片台词的时间戳），再让脚本回答每一段"从哪开始、到哪结束"：
       能吸附到句末就 <code>句末+0.35s</code>，会切碎镜头就延长到整镜，开场和片尾固定留 2 秒原声。</p>
 
+    <div class="tw">
     <table>
-      <caption>节选自 <code>work/out/selfcheck.txt</code>（这集 29 段全表，求解方式一栏是脚本写的，不是人填的）。</caption>
+      <caption><span class="hint">左右滑动看全表 · </span>节选自 <code>work/out/selfcheck.txt</code>（这集 29 段全表，求解方式一栏是脚本写的，不是人填的）。</caption>
       <thead><tr><th>片段</th><th>原片区间</th><th>成片位置</th><th>求解方式</th><th style="text-align:right">解说 / 原声</th></tr></thead>
       <tbody>
         <tr><td>p00 钩子</td><td class="mono">0.00–43.59</td><td class="mono">00:00.00</td><td>固定片段（解说后原片再留 2s）</td><td class="mono" style="text-align:right">41.6s / 2.0s</td></tr>
@@ -216,6 +223,7 @@ footer .sign{font-size:12px; letter-spacing:.14em; color:var(--faint); margin-to
         <tr><td>p27 片尾</td><td class="mono">3604.00–3613.73</td><td class="mono">22:12.77</td><td>固定片段（解说后原片再留 2s）</td><td class="mono" style="text-align:right">7.7s / 2.0s</td></tr>
       </tbody>
     </table>
+    </div>
   </section>
 
   <section>
@@ -240,7 +248,7 @@ footer .sign{font-size:12px; letter-spacing:.14em; color:var(--faint); margin-to
         <h3>适合</h3>
         <ul>
           <li>有成句台词、时间轴清晰的外语剧集或长片（25–60 分钟一集）。</li>
-          <li>要批量的内容团队：同一套参数跑 5 季 23 集，换集只改素材路径。</li>
+          <li>要批量的内容团队：同一套参数跑 23 集（三个整季 + 第四季第一集），换集只改素材路径。</li>
           <li>需要"可验收"的交付：切点表、审计表、核对结果都能留档。</li>
         </ul>
       </div>

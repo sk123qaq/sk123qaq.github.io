@@ -45,7 +45,7 @@ h1 em{font-style:normal; color:var(--red)}
 .figures li{padding:0 28px; border-left:1px solid var(--rule)}
 .figures li:first-child{padding-left:0; border-left:0}
 .figures b{display:block; font:700 27px/1.3 var(--serif)}
-.figures span{display:block; font-size:12px; letter-spacing:.1em; color:var(--faint); margin-top:3px; font-family:var(--sans)}
+.figures span{display:block; font-size:12px; letter-spacing:.1em; color:var(--faint); margin-top:3px; font-family:var(--sans); word-break:keep-all}
 
 /* 项目 */
 section{padding-top:64px}
@@ -94,25 +94,33 @@ footer a{color:var(--ink); text-decoration:none; border-bottom:1px solid var(--r
 footer a:hover{color:var(--red); border-color:var(--red)}
 footer .sign{font-size:12px; letter-spacing:.14em; color:var(--faint); margin-top:24px}
 
-@media (max-width:860px){
+@media screen and (max-width:860px){
   main{padding:0 22px 64px} .bar{padding:20px 22px 0}
   .pj-body{grid-template-columns:1fr; gap:0; padding-left:0}
   .links{padding-left:0}
   .points{grid-template-columns:1fr; gap:24px}
-  .figures li{padding:0 16px}
-  .figures b{font-size:22px}
+  .sub{font-size:16px; line-height:1.85}
+  .figures{display:grid; grid-template-columns:repeat(3,1fr); gap:12px 10px; padding:16px 0 18px}
+  .figures li{padding:0; border-left:0}
+  .figures b{font-size:20px}
+  .figures span{font-size:11px}
+  .pj-head{flex-direction:column; align-items:flex-start; gap:2px; margin-bottom:8px}
+  .pj-no{min-width:0; font-size:12px}
+  .pj h3{font-size:22px; line-height:1.3}
+  .pj h3 small{display:block; margin:6px 0 0; font-size:11.5px; line-height:1.5}
+  .pj{padding:26px 0 24px}
 }
 
 /* 打印：一页 A4 */
 @page{size:A4; margin:10mm 13mm}
 @media print{
   :root{--paper:#fff; --card:#fff}
-  body{background:#fff; font-size:9.4pt; line-height:1.55}
+  body{background:#fff; font-size:11.4pt; line-height:1.62}
   main{padding:0; max-width:none}
   .bar{padding:0 0 6px; font-size:8pt; letter-spacing:.1em}
   .lede{padding:6px 0 0}
   .kicker{margin:0 0 8px; font-size:8pt}
-  h1{font-size:19pt; margin:0 0 5px; line-height:1.08}
+  h1{font-size:25pt; margin:0 0 5px; line-height:1.08}
   .sub{font-size:9pt; line-height:1.55; margin:0 0 6px; max-width:none}
   .figures{padding:5px 0 6px}
   .figures li{padding:0 18px}
@@ -123,12 +131,12 @@ footer .sign{font-size:12px; letter-spacing:.14em; color:var(--faint); margin-to
   .secnote{display:none}
   .pj{padding:4px 0 4px; break-inside:avoid}
   .pj-head{margin-bottom:5px; gap:10px}
-  .pj h3{font-size:12pt}
+  .pj h3{font-size:13.5pt}
   .pj h3 small{font-size:7.6pt; margin-left:8px}
   .pj-body{gap:0 24px}
-  .pj-body p{font-size:8.4pt; line-height:1.5; margin:0 0 2px}
+  .pj-body p{font-size:10.2pt; line-height:1.6; margin:0 0 2px}
   .why{font-size:8.4pt}
-  .facts{font-size:7.9pt; line-height:1.45}
+  .facts{font-size:9.4pt; line-height:1.55}
   .facts li{padding:1.5px 0}
   .links{margin-top:4px; gap:5px}
   .links a{padding:1.5px 6px; font-size:7.3pt; border-color:#ccc}
@@ -178,7 +186,7 @@ footer .sign{font-size:12px; letter-spacing:.14em; color:var(--faint); margin-to
       <div class="pj-body">
         <div>
           <p>长文档问答的通病是<b>找不到原文、答案不可核对</b>：模型说得像那么回事，用户没法验证。
-            这个项目把 15 本书、1,973 章正文做成段落级倒排索引，答案里每条依据都回指
+            这个项目把书库里 1,817 本、10.8 万章正文（300 万段）做成段落级倒排索引，答案里每条依据都回指
             <code>books/&lt;uid&gt;/md/章节.md:行号</code>，点开就是原文那一行。</p>
           <p class="why">为什么值得给客户看：换成合同、法规、设备手册，链路完全一样——查得到、可核对、能交接。
             配套 ops 控制台管索引与诊断，另有验收测试与脱机静态样例，不依赖云端也能演示。</p>
@@ -187,7 +195,7 @@ footer .sign{font-size:12px; letter-spacing:.14em; color:var(--faint); margin-to
           <li><span>代码量</span><b>4.2 万行 Python</b></li>
           <li><span>提交</span><b>143</b></li>
           <li><span>测试</span><b>46 个测试文件</b></li>
-          <li><span>演示</span><b>89 秒真录 · 无旁白</b></li>
+          <li><span>演示</span><b>89 秒真录 · 15 本可点开</b></li>
           <li><span>依赖</span><b>标准库 + SQLite FTS5</b></li>
         </ul>
       </div>
@@ -212,10 +220,10 @@ footer .sign{font-size:12px; letter-spacing:.14em; color:var(--faint); margin-to
         </div>
         <ul class="facts">
           <li><span>原片 → 成片</span><b>60:13 → 22:22</b></li>
+          <li><span>成片</span><b>23 集 · 3 季 + 1 集</b></li>
           <li><span>片段 / 解说</span><b>29 段 / 8:39</b></li>
-          <li><span>保留原声</span><b>13:44</b></li>
           <li><span>交付门禁</span><b>verify 9 项</b></li>
-          <li><span>成片</span><b>23 集 · 5 季</b></li>
+          <li><span>保留原声</span><b>13:44</b></li>
         </ul>
       </div>
       <div class="links">
